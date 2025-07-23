@@ -164,7 +164,13 @@ PLM releases models in three different sizes (1B, 3B and 8B).
 > [!TIP]
 > See [`apps/plm/README.md`](apps/plm/README.md) for details and how to get started!
 
-## Installation :wrench:
+## (New Instructions) Installation using `uv`
+
+```shell
+uv sync --all-packages
+```
+
+## (Old Instructions) Installation using `conda` :wrench:
 ```shell
 git clone https://github.com/facebookresearch/perception_models.git
 cd perception_models
