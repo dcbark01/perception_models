@@ -1,0 +1,29 @@
+[project]
+name = "perception-models"
+version = "1.0.0"
+authors = [
+    { name = "Daniel Barker", email = "dcbark01@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[[tool.uv.index]]
+name = "torch-gpu"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[tool.uv.workspace]
+members = [
+    "libs/core", 
+    "apps/plm", 
+]
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=6.2.1",
+    "pytest>=8.4.1",
+    "pyclean>=3.1.0",
+    "jupyter>=1.1.1",
+    "ipykernel>=6.30.0",
+    "nbstripout>=0.8.1",
+]

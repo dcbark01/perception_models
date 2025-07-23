@@ -1,6 +1,7 @@
 *.pyc
 .vscode
-*.ipynb
+apps/*.ipynb
+libs/*.ipynb
 slurm-*.out
 wandb
 data/*
