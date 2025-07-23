@@ -8,6 +8,15 @@ dependencies = [
     "perception-models-core",
 ]
 
+[dependency-groups]
+dev = [
+    "pytest-cov>0",
+    "pytest>0",
+    "pyclean>0",
+    "jupyter>0",
+    "ipykernel>0",
+]
+
 [tool.uv.sources]
 perception-models-core = { workspace = true }
 
