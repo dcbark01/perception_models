@@ -1,0 +1,22 @@
+[project]
+name = "plm"
+version = "0.1.0"
+description = "Perception Encoder PLM App"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "perception-models-core",
+]
+
+[tool.uv.sources]
+perception-models-core = { workspace = true }
+
+[project.scripts]
+plm-generate = "perception_models.plm.generate:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["perception_models"]
