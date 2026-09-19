@@ -115,8 +115,8 @@ You can get started with the following example for image and text feature extrac
 ```python
 import torch
 from PIL import Image
-import core.vision_encoder.pe as pe
-import core.vision_encoder.transforms as transforms
+import perception_models.core.vision_encoder.pe as pe
+import perception_models.core.vision_encoder.transforms as transforms
 
 print("CLIP configs:", pe.CLIP.available_configs())
 # CLIP configs: ['PE-Core-G14-448', 'PE-Core-L14-336', 'PE-Core-B16-224', 'PE-Core-S16-384', 'PE-Core-T16-384']
@@ -144,7 +144,7 @@ print("Label probs:", text_probs)  # prints: [[0.0, 0.0, 1.0]]
 
 ```python
 import os
-from core.audio_visual_encoder import PEAudioVisual, PEAudioVisualTransform
+from perception_models.core.audio_visual_encoder import PEAudioVisual, PEAudioVisualTransform
 import torch
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -180,7 +180,7 @@ av_dot_products = torch.einsum("ij,ij->i", avt_outputs.audio_embeds, avt_outputs
 ### Getting Started with PE-A-Frame
 
 ```python
-from core.audio_visual_encoder import (
+from perception_models.core.audio_visual_encoder import (
     PEAudioFrame,
     PEAudioFrameTransform,
 )
@@ -367,23 +367,33 @@ Sythetic image/video captions and QAs used in PLM, please refer to the paper, Se
 ---
 
 ## Installation :wrench:
+There are two install variants:
+
+| Variant | Includes | Use it for |
+|---------|----------|------------|
+| base (default) | PE and PE-AV encoders | inference / feature extraction with `perception_models.core.vision_encoder` and `perception_models.core.audio_visual_encoder`; works on macOS |
+| `train` | base + xformers and the PLM training / evaluation stack | `apps/plm`, `apps/pe` benchmarks, `perception_models.core.data` |
+
+xformers is only in `train`: the encoders don't use it, and it has no macOS wheels on PyPI.
+
+### With pixi (recommended for working in this repo)
+This repo is a [pixi](https://pixi.sh) workspace; PyTorch, torchcodec, xformers and ffmpeg come from conda-forge.
 ```shell
 git clone https://github.com/facebookresearch/perception_models.git
 cd perception_models
 
-conda create --name perception_models python=3.12
-conda activate perception_models
-
-# Install PyTorch
-pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 xformers --index-url https://download.pytorch.org/whl/cu124
-
-# We use torchcodec for decoding videos into PyTorch tensors
-conda install ffmpeg -c conda-forge
-pip install torchcodec==0.1 --index-url=https://download.pytorch.org/whl/cu124
-
-pip install -e .
+pixi install              # base: encoders only (PE, PE-AV)
+pixi install -e train     # train: + xformers, PLM training / evaluation deps
+pixi run -e dev test      # run the test suite
 ```
-This will install an editable version of repo, allowing you to make changes to the code without needing to reinstall the package every time.
+The package is installed in editable mode as `perception_models`; model code lives under `perception_models.core`.
+
+### With pip (using it from another project)
+```shell
+pip install ./perception_models              # base: encoders only
+pip install "./perception_models[train]"     # train: + xformers, PLM training / evaluation deps
+```
+Add `-e` for an editable install. torchcodec needs a system ffmpeg (e.g. `brew install ffmpeg` or `conda install ffmpeg -c conda-forge`), and for GPU builds of PyTorch / xformers you may want to install them first from the [PyTorch index](https://pytorch.org/get-started/locally/).
 
 
 ## 🙏 Acknowledgement

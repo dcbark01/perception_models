@@ -19,12 +19,12 @@ from tqdm import tqdm
 
 from apps.plm.tokenizer import PLMTokenizer, Tokenizer, build_tokenizer
 from apps.plm.transformer import LMTransformer, LMTransformerArgs
-from core.args import dataclass_from_dict
-from core.checkpoint import load_consolidated_checkpoint
-from core.transformer import (Attention, causal_mask, generate_doc_mask_mod,
+from perception_models.core.args import dataclass_from_dict
+from perception_models.core.checkpoint import load_consolidated_checkpoint
+from perception_models.core.transformer import (Attention, causal_mask, generate_doc_mask_mod,
                               lengths_to_local_ids, lengths_to_start_ids)
-from core.transforms.image_transform import get_image_transform
-from core.transforms.video_transform import get_video_transform
+from perception_models.core.transforms.image_transform import get_image_transform
+from perception_models.core.transforms.video_transform import get_video_transform
 
 
 def sample_top_p(probs: torch.Tensor, p: float) -> torch.Tensor:

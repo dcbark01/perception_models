@@ -46,9 +46,9 @@ class ParseKwargs(argparse.Action):
 
 
 from dataclasses import dataclass
-import core.vision_encoder.pe as pe
-import core.vision_encoder.transforms as transforms
-from core.audio_visual_encoder import PEAudioVisual, PEAudioVisualTransform
+import perception_models.core.vision_encoder.pe as pe
+import perception_models.core.vision_encoder.transforms as transforms
+from perception_models.core.audio_visual_encoder import PEAudioVisual, PEAudioVisualTransform
 
 @dataclass
 class Visualization:

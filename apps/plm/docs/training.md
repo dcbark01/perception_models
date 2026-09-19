@@ -105,7 +105,7 @@ For evaluation, please refer to [`evaluation.md`](evaluation.md).
 We also provide a script to launch a distributed multinode training on slurm. Please use the provided utility named `stool.py`.
 
 ```shell
-python -m core.stool script=apps.plm.train config=apps/plm/configs/stage_3/plm_8b.yaml qos=<QoS> nodes=<num_of_nodes>
+python -m perception_models.core.stool script=apps.plm.train config=apps/plm/configs/stage_3/plm_8b.yaml qos=<QoS> nodes=<num_of_nodes>
 ```
 
 ---

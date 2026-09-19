@@ -10,9 +10,13 @@ from torch import nn
 from torch.nn import functional as F
 from torch.nn.attention.flex_attention import (BlockMask, _mask_mod_signature,
                                                flex_attention)
-from xformers.ops import AttentionBias, fmha
 
-from core import probe
+try:
+    from xformers.ops import AttentionBias, fmha
+except ImportError:  # xformers is optional (`train` extra); only attn_impl="fmha" needs it.
+    AttentionBias, fmha = None, None
+
+from perception_models.core import probe
 
 
 class InitStdFactor(Enum):
@@ -425,6 +429,10 @@ class Attention(nn.Module):
             output = output.transpose(1, 2).contiguous()  # B H S D -> B S H D
 
         elif attn_impl == "fmha":
+            if fmha is None:
+                raise ImportError(
+                    'attn_impl="fmha" requires xformers: pip install "perception_models[train]"'
+                )
             assert mask is None or isinstance(mask, AttentionBias)
             output = fmha.memory_efficient_attention(xq, xk, xv, attn_bias=mask)
             # This uses B S H D instead of B H S D of pytorch

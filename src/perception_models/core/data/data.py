@@ -15,7 +15,7 @@ from typing import Any, Dict, Iterator, Optional, TypedDict
 
 import numpy as np
 
-from core.tokenizer import ChatFormat, TokenizerArgs, build_tokenizer
+from perception_models.core.tokenizer import ChatFormat, TokenizerArgs, build_tokenizer
 
 logger = logging.getLogger()
 

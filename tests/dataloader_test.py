@@ -5,7 +5,7 @@ import torch
 
 from apps.plm.dataset_conf import dataset_config as DATASET_CONFIGS
 from apps.plm.tokenizer import PLMTokenizer
-from core.data.dataloader import DataloadArgs, get_dataloader
+from perception_models.core.data.dataloader import DataloadArgs, get_dataloader
 
 
 # TOKENIZER_PATH=facebook/Perception-LM-1B/tokenizer.model python -m unittest core/tests/dataloader_test.py
