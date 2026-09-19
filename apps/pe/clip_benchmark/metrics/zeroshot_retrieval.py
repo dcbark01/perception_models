@@ -4,7 +4,7 @@ import torch
 import torch.nn.functional as F
 from tqdm import tqdm
 from transformers import BatchFeature
-from core.audio_visual_encoder import PEAudioVisual
+from perception_models.core.audio_visual_encoder import PEAudioVisual
 from collections import defaultdict
 
 

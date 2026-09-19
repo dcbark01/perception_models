@@ -8,3 +8,9 @@ data-gym-cache/*
 torchinductor_*/*
 tmp*/*
 apps/plm/dummy_datasets
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+# build artifacts
+dist/
+build/

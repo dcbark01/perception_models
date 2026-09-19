@@ -32,7 +32,11 @@ from torch.nn.attention import SDPBackend, sdpa_kernel
 from torch.utils._python_dispatch import TorchDispatchMode
 from torch.utils._pytree import tree_map
 from torch.utils.module_tracker import ModuleTracker
-from xformers.ops import fmha
+
+try:
+    from xformers.ops import fmha
+except ImportError:  # xformers is optional (`train` extra)
+    fmha = None
 
 
 @torch.library.custom_op("torchprobe::log", mutates_args=(), device_types=None)
@@ -482,7 +486,7 @@ class AutoProbeD(TorchDispatchMode):
                 func, args=args, kwargs=kwargs, normalize_to_only_use_kwargs=True
             )
             _compute_attn_stats_sdpa(self, path, **kwargs)
-        elif func._overloadpacket == fmha.flash.FwOp.OPERATOR:
+        elif fmha is not None and func._overloadpacket == fmha.flash.FwOp.OPERATOR:
             _, kwargs = normalize_function(
                 func, args=args, kwargs=kwargs, normalize_to_only_use_kwargs=True
             )

@@ -173,8 +173,8 @@ Perception Encoder follows the same structure as [open_clip](https://github.com/
 ```python
 import torch
 from PIL import Image
-import core.vision_encoder.pe as pe
-import core.vision_encoder.transforms as transforms
+import perception_models.core.vision_encoder.pe as pe
+import perception_models.core.vision_encoder.transforms as transforms
 
 print("CLIP configs:", pe.CLIP.available_configs())
 # CLIP configs: ['PE-Core-G14-448', 'PE-Core-L14-336', 'PE-Core-B16-224', 'PE-Core-S16-384', 'PE-Core-T16-384']
@@ -211,8 +211,8 @@ Loading the vision encoders for PE core, PE lang, and PE spatial for downstream 
 ```python
 import torch
 from PIL import Image
-import core.vision_encoder.pe as pe
-import core.vision_encoder.transforms as transforms
+import perception_models.core.vision_encoder.pe as pe
+import perception_models.core.vision_encoder.transforms as transforms
 
 print("PE configs:", pe.VisionTransformer.available_configs())
 # PE configs: ['PE-Core-G14-448', 'PE-Core-L14-336', 'PE-Core-B16-224', 'PE-Core-S16-384', 'PE-Core-T16-384', 'PE-Lang-G14-448', 'PE-Lang-L14-448', 'PE-Lang-G14-448-Tiling', 'PE-Lang-L14-448-Tiling', 'PE-Spatial-G14-448', 'PE-Spatial-L14-448', 'PE-Spatial-B16-512', 'PE-Spatial-S16-512', 'PE-Spatial-T16-512']
@@ -232,7 +232,7 @@ print(out.shape)
 
 ```python
 import os
-from core.audio_visual_encoder import PEAudioVisual, PEAudioVisualTransform
+from perception_models.core.audio_visual_encoder import PEAudioVisual, PEAudioVisualTransform
 import torch
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -268,7 +268,7 @@ av_dot_products = torch.einsum("ij,ij->i", avt_outputs.audio_embeds, avt_outputs
 ### 5. PE-A Frame audio event localization
 
 ```python
-from core.audio_visual_encoder import (
+from perception_models.core.audio_visual_encoder import (
     PEAudioFrame,
     PEAudioFrameTransform,
 )
